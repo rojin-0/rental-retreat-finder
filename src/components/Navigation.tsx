@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Search, Heart, User, Menu, X } from 'lucide-react';
+import { ShoppingCart, Library, User, Search, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -10,6 +10,7 @@ export const Navigation = () => {
   const isMobile = useIsMobile();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,9 +22,9 @@ export const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/listings', label: 'Properties', icon: Search },
-    { path: '/favorites', label: 'Favorites', icon: Heart },
+    { path: '/library', label: 'Library', icon: Library },
+    { path: '/category', label: 'Category', icon: Search },
+    { path: '/cart', label: 'Cart', icon: ShoppingCart },
     { path: '/profile', label: 'Account', icon: User },
   ];
 
@@ -31,17 +32,28 @@ export const Navigation = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle search logic
+    console.log('Searching for:', searchQuery);
+  };
+
   return (
     <>
       <header 
         className={cn(
           'fixed top-0 left-0 right-0 z-50 py-4 px-6 transition-all duration-300 ease-in-out',
-          isScrolled ? 'glass-card' : 'bg-transparent'
+          isScrolled ? 'bg-[#0d1117]/80 backdrop-blur-lg border-b border-white/5' : 'bg-[#0d1117]'
         )}
       >
         <div className="container mx-auto flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-xl font-semibold tracking-tighter">RentalRetreat</span>
+            <img 
+              src="/lovable-uploads/108a1c70-0b58-47b5-bd3d-c846de2a1b79.png" 
+              alt="Vortex" 
+              className="h-8 w-auto" 
+            />
+            <span className="text-xl font-semibold tracking-tighter bg-gradient-to-r from-[#00ff4c] to-[#5200ff] bg-clip-text text-transparent">VORTEX</span>
           </Link>
 
           {/* Desktop navigation */}
@@ -54,13 +66,13 @@ export const Navigation = () => {
                   className={cn(
                     'text-sm font-medium transition-colors relative group py-2',
                     location.pathname === link.path
-                      ? 'text-foreground'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'text-white'
+                      : 'text-white/70 hover:text-white'
                   )}
                 >
                   {link.label}
                   <span className={cn(
-                    'absolute bottom-0 left-0 w-full h-0.5 bg-foreground scale-x-0 group-hover:scale-x-100 transition-transform duration-300',
+                    'absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#00ff4c] to-[#5200ff] scale-x-0 group-hover:scale-x-100 transition-transform duration-300',
                     location.pathname === link.path ? 'scale-x-100' : ''
                   )} />
                 </Link>
@@ -68,68 +80,94 @@ export const Navigation = () => {
             </nav>
           )}
 
-          {/* Mobile menu toggle */}
-          {isMobile && (
-            <button 
-              onClick={toggleMobileMenu}
-              className="p-2"
-              aria-label="Toggle menu"
+          {/* Search bar */}
+          <form onSubmit={handleSearch} className="hidden md:flex items-center relative max-w-md flex-1 mx-8">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-[#1c2333] border border-[#30363d] rounded-full py-2 pl-4 pr-10 text-sm text-white/90 focus:outline-none focus:ring-1 focus:ring-[#58a6ff] focus:border-[#58a6ff]"
+            />
+            <button
+              type="submit"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70"
+              aria-label="Search"
             >
-              {isMobileMenuOpen ? <X /> : <Menu />}
+              <Search size={16} />
             </button>
-          )}
+          </form>
+
+          {/* Cart and Account icons */}
+          <div className="flex items-center gap-4">
+            <Link to="/cart" className="relative p-2 text-white/80 hover:text-white transition-colors">
+              <ShoppingCart size={22} />
+              <span className="absolute -top-1 -right-1 bg-gradient-to-r from-[#00ff4c] to-[#5200ff] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                0
+              </span>
+            </Link>
+            <Link to="/profile" className="p-2 text-white/80 hover:text-white transition-colors">
+              <User size={22} />
+            </Link>
+            
+            {/* Mobile menu toggle */}
+            {isMobile && (
+              <button 
+                onClick={toggleMobileMenu}
+                className="p-2 text-white"
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X /> : <Menu />}
+              </button>
+            )}
+          </div>
         </div>
       </header>
 
       {/* Mobile navigation */}
       {isMobile && (
         <div className={cn(
-          'fixed bottom-0 left-0 right-0 bg-background border-t border-border z-50 py-2 px-6',
+          'fixed inset-0 z-40 bg-[#0d1117] pt-20',
           'transition-transform duration-300',
-          isMobileMenuOpen ? 'transform-none' : 'transform translate-y-full'
+          isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         )}>
-          <nav className="flex items-center justify-around">
+          <nav className="flex flex-col p-6 space-y-6">
+            <form onSubmit={handleSearch} className="mb-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-[#1c2333] border border-[#30363d] rounded-full py-2 pl-4 pr-10 text-white/90 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/70"
+                  aria-label="Search"
+                >
+                  <Search size={16} />
+                </button>
+              </div>
+            </form>
+            
             {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
                 className={cn(
-                  'flex flex-col items-center p-2 space-y-1',
+                  'flex items-center py-3 px-4 rounded-lg',
                   location.pathname === link.path
-                    ? 'text-foreground'
-                    : 'text-muted-foreground'
+                    ? 'bg-[#1c2333] text-white'
+                    : 'text-white/70 hover:bg-[#1c2333]/50 hover:text-white'
                 )}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <link.icon size={20} />
-                <span className="text-xs">{link.label}</span>
+                <link.icon className="mr-3" size={20} />
+                <span>{link.label}</span>
               </Link>
             ))}
           </nav>
-        </div>
-      )}
-
-      {/* Fixed bottom navigation for quick access */}
-      {isMobile && !isMobileMenuOpen && (
-        <div className="fixed bottom-6 left-0 right-0 flex justify-center z-40 pointer-events-none">
-          <div className="glass-card rounded-full py-3 px-8 pointer-events-auto animate-fade-up">
-            <div className="flex items-center space-x-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={cn(
-                    'flex items-center justify-center p-2',
-                    location.pathname === link.path
-                      ? 'text-foreground'
-                      : 'text-muted-foreground'
-                  )}
-                >
-                  <link.icon size={20} />
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       )}
     </>
