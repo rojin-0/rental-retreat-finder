@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Navigation from './Navigation';
-import { Github, Twitter, Instagram, Youtube, Mail, Globe, Coffee, Shield, Headphones } from 'lucide-react';
+import { Github, Twitter, Instagram, Youtube, Mail, Globe, Shield, Headphones } from 'lucide-react';
 
 const Layout = ({ children }) => {
   const location = useLocation();
@@ -48,25 +48,25 @@ const Layout = ({ children }) => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0d1117]">
+    <div className="min-h-screen flex flex-col bg-[#052506]">
       <Navigation />
       <main className="flex-grow pt-20 page-fade-in">
         {children}
       </main>
       
       {/* Footer */}
-      <footer className="mt-16 bg-gradient-to-b from-[#131922] to-[#0d1117] border-t border-white/5">
+      <footer className="mt-16 bg-gradient-to-b from-[#0f3c0f] to-[#052506] border-t border-[#7ed957]/10">
         {/* Features section - before main footer */}
         <div className="container mx-auto py-12 px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <div 
                 key={index} 
-                className="bg-[#1c2333]/40 hover:bg-[#1c2333]/60 border border-white/5 rounded-xl p-6 transition-all duration-300 hover:transform hover:translate-y-[-5px]"
+                className="bg-[#0f3c0f]/40 hover:bg-[#0f3c0f]/60 border border-[#7ed957]/20 rounded-xl p-6 transition-all duration-300 hover:transform hover:translate-y-[-5px]"
               >
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-full bg-gradient-to-br from-[#00ff4c]/20 to-[#5200ff]/20 text-white">
-                    <feature.icon size={20} className="text-[#00ff4c]" />
+                  <div className="p-3 rounded-full bg-[#7ed957]/20 text-white">
+                    <feature.icon size={20} className="text-[#7ed957]" />
                   </div>
                   <div>
                     <h3 className="text-white font-medium mb-1">{feature.title}</h3>
@@ -85,22 +85,21 @@ const Layout = ({ children }) => {
             <div className="md:col-span-1">
               <div className="flex items-center mb-4">
                 <img 
-                  src="/lovable-uploads/108a1c70-0b58-47b5-bd3d-c846de2a1b79.png" 
+                  src="/lovable-uploads/6d1ce1a7-85ff-43fd-9ae8-965218cd08e3.png" 
                   alt="Vortex" 
-                  className="h-10 w-auto mr-2" 
+                  className="h-12 w-auto" 
                 />
-                <span className="text-xl font-bold tracking-tighter bg-gradient-to-r from-[#00ff4c] to-[#5200ff] bg-clip-text text-transparent">VORTEX</span>
               </div>
-              <p className="text-white/60 text-sm mb-6">The ultimate destination for gamers worldwide. Discover, download, and play the latest games all in one place.</p>
+              <p className="text-white/60 text-sm mb-6 mt-4">Where games find you. The ultimate destination for gamers worldwide. Discover, download, and play the latest games all in one place.</p>
               <div className="flex gap-3">
                 {socialLinks.map((social, index) => (
                   <a 
                     key={index}
                     href={social.url} 
-                    className="w-9 h-9 flex items-center justify-center rounded-full bg-[#1c2333] hover:bg-[#30363d] transition-colors"
+                    className="w-9 h-9 flex items-center justify-center rounded-full bg-[#0f3c0f] hover:bg-[#1a4d1a] transition-colors"
                     aria-label={social.label}
                   >
-                    <social.icon size={18} className="text-white/70" />
+                    <social.icon size={18} className="text-[#7ed957]" />
                   </a>
                 ))}
               </div>
@@ -112,7 +111,7 @@ const Layout = ({ children }) => {
               <ul className="space-y-2">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
-                    <Link to={link.path} className="text-white/60 hover:text-white/90 text-sm transition-colors">
+                    <Link to={link.path} className="text-white/60 hover:text-[#7ed957] text-sm transition-colors">
                       {link.label}
                     </Link>
                   </li>
@@ -126,7 +125,7 @@ const Layout = ({ children }) => {
               <ul className="space-y-2">
                 {supportLinks.map((link, index) => (
                   <li key={index}>
-                    <a href={link.path} className="text-white/60 hover:text-white/90 text-sm transition-colors">
+                    <a href={link.path} className="text-white/60 hover:text-[#7ed957] text-sm transition-colors">
                       {link.label}
                     </a>
                   </li>
@@ -140,7 +139,7 @@ const Layout = ({ children }) => {
               <ul className="space-y-2">
                 {legalLinks.map((link, index) => (
                   <li key={index}>
-                    <a href={link.path} className="text-white/60 hover:text-white/90 text-sm transition-colors">
+                    <a href={link.path} className="text-white/60 hover:text-[#7ed957] text-sm transition-colors">
                       {link.label}
                     </a>
                   </li>
@@ -150,18 +149,18 @@ const Layout = ({ children }) => {
           </div>
           
           {/* Bottom footer - copyright, email, etc */}
-          <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+          <div className="pt-6 border-t border-[#7ed957]/10 flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/40 text-sm mb-4 md:mb-0">
               &copy; {new Date().getFullYear()} Vortex Games. All rights reserved.
             </p>
             <div className="flex items-center space-x-4">
-              <a href="#" className="flex items-center gap-1 text-white/60 hover:text-white/90 text-sm transition-colors">
+              <a href="#" className="flex items-center gap-1 text-white/60 hover:text-[#7ed957] text-sm transition-colors">
                 <Mail size={14} />
                 <span>support@vortexgames.io</span>
               </a>
-              <a href="#" className="flex items-center gap-1 text-white/60 hover:text-white/90 text-sm transition-colors">
-                <Coffee size={14} />
-                <span>Buy us a coffee</span>
+              <a href="#" className="flex items-center gap-1 text-white/60 hover:text-[#7ed957] text-sm transition-colors">
+                <Headphones size={14} />
+                <span>24/7 Support</span>
               </a>
             </div>
           </div>

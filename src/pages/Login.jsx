@@ -66,7 +66,7 @@ const Login = () => {
           <p className="text-white/70">Sign in to your Vortex account</p>
         </div>
         
-        <div className="bg-[#1c2333]/60 backdrop-blur-sm border border-[#30363d] rounded-lg p-6 shadow-xl">
+        <div className="bg-[#0f3c0f]/60 backdrop-blur-sm border border-[#7ed957]/20 rounded-lg p-6 shadow-xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
@@ -77,14 +77,14 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="bg-[#0d1117]/70 border-[#30363d]"
+                className="bg-[#052506]/70 border-[#7ed957]/30"
               />
             </div>
             
             <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <Label htmlFor="password">Password</Label>
-                <Link to="/forgot-password" className="text-xs text-[#58a6ff] hover:underline">
+                <Link to="/forgot-password" className="text-xs text-[#7ed957] hover:underline">
                   Forgot Password?
                 </Link>
               </div>
@@ -95,13 +95,13 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="bg-[#0d1117]/70 border-[#30363d]"
+                className="bg-[#052506]/70 border-[#7ed957]/30"
               />
             </div>
             
             <Button 
               type="submit" 
-              className="w-full bg-gradient-to-r from-[#00ff4c] to-[#5200ff] hover:opacity-90 flex items-center justify-center gap-2 h-11" 
+              className="w-full bg-[#7ed957] hover:bg-[#6bc348] text-[#052506] flex items-center justify-center gap-2 h-11" 
               disabled={isLoading}
             >
               {isLoading ? "Signing in..." : (
@@ -113,19 +113,19 @@ const Login = () => {
             </Button>
           </form>
           
-          <div className="mt-8 pt-6 border-t border-[#30363d] text-center">
+          <div className="mt-8 pt-6 border-t border-[#7ed957]/20 text-center">
             <p className="text-white/70 mb-4">
               Don't have an account yet?
             </p>
             <Link 
               to="/register" 
-              className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg border border-[#30363d] text-white hover:bg-[#30363d]/30 transition-colors"
+              className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg border border-[#7ed957]/30 text-white hover:bg-[#7ed957]/10 transition-colors"
             >
               <UserPlus size={18} />
               <span>Create New Account</span>
             </Link>
             
-            <Link to={redirectTo === '/' ? '/' : redirectTo} className="mt-4 inline-flex items-center gap-1 text-[#58a6ff] hover:underline text-sm">
+            <Link to={redirectTo === '/' ? '/' : redirectTo} className="mt-4 inline-flex items-center gap-1 text-[#7ed957] hover:underline text-sm">
               <ChevronLeft size={14} />
               <span>Back to {redirectTo === '/' ? 'Home' : 'Previous Page'}</span>
             </Link>
